@@ -1,9 +1,15 @@
 import React from 'react';
-import { Create, SimpleForm, TextInput, DateInput, SelectInput  } from 'react-admin';
+import { 
+  Create,
+  SimpleForm, 
+  TextInput, 
+  DateInput, 
+  SelectInput
+  } from 'react-admin';
 const EmployeesCreate = (props) => {
   return (
     <Create {...props}>
-      <SimpleForm>
+      <SimpleForm >
         <TextInput source="name" />
         <DateInput source="date_of_birth"/>
         <SelectInput source="gender" choices={[
@@ -17,7 +23,7 @@ const EmployeesCreate = (props) => {
         <TextInput source="position" />
         <TextInput source="level" />         
         <DateInput source="date_of_joining"/>  
-      </SimpleForm>
+      </SimpleForm >
     </Create>
   );
 };

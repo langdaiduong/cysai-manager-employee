@@ -17,7 +17,7 @@ import {
 export const PaginationActions = props => <RaPaginationActions {...props} color="secondary" />;
 export const Pagination = props => <RaPagination {...props} ActionsComponent={PaginationActions} />;
 
-const PostFilter = (props) => (
+const UsersFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="Name" source="name" reference="users" allowEmpty>
@@ -27,7 +27,7 @@ const PostFilter = (props) => (
 );
 const UsersList = (props) => {
   return (
-    <List {...props} filters={<PostFilter/>} pagination={<Pagination/>} >
+    <List {...props} filters={<UsersFilter/>} pagination={<Pagination/>} >
       <Datagrid>
         <TextField source="id" />
         <TextField source="username" />

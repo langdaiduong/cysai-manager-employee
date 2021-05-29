@@ -13,7 +13,7 @@ import {
   TextInput
 } from 'react-admin';
 
-const PostFilter = (props) => (
+const SalariesFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="Name" source="fullname" reference="salaries" allowEmpty>
@@ -23,7 +23,7 @@ const PostFilter = (props) => (
 );
 const SalariesList = (props) => {
   return (
-    <List {...props} filters={<PostFilter/>}>
+    <List {...props} filters={<SalariesFilter/>}>
       <Datagrid>
         <TextField source="id" />
         <TextField source="fullname" />

@@ -12,8 +12,19 @@ import {
   ReferenceInput,
   TextInput
 } from 'react-admin';
+import ResetViewsButton from '../ResetViewsButton';
+import { Fragment } from 'react';
+// import Button from '@material-ui/core/Button';
+import { BulkDeleteButton } from 'react-admin';
 
-const PostFilter = (props) => (
+const PostBulkActionButtons = props => (
+    <Fragment>
+        <ResetViewsButton label="Reset Views" {...props} />
+        {/* default bulk delete action */}
+        <BulkDeleteButton {...props} />
+    </Fragment>
+);
+const EmployeesFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="name" source="name" reference="employees" allowEmpty>
@@ -24,7 +35,7 @@ const PostFilter = (props) => (
 
 const EmployeesList = (props) => {
   return (
-    <List {...props} filters={<PostFilter/>}>
+    <List {...props} filters={<EmployeesFilter/>} bulkActionButtons={<PostBulkActionButtons />}>
       <Datagrid>
         <TextField source="id" />
         <TextField source="name" />
