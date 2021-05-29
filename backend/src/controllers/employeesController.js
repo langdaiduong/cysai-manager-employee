@@ -15,8 +15,6 @@ module.exports = {
 
   //#get the list of employee
   fetch: async (request, reply) => {
-    const filter = request.query.filter
-    console.log(filter);
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
@@ -26,13 +24,25 @@ module.exports = {
       .replace("]", "")
       .split(",");
     try {
-      const employees = await Employee.find({})
-        .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
-        .skip(+range[0])
-        .limit(+range[1] - +range[0]);
-      const total = await Employee.countDocuments({});
-      reply.header("Content-Range", `employees 0-${total}/${total}`);
-      reply.status(200).json(employees);
+      if (request.query.filter === "{}") {
+        const emloyees = await Employee.find({})
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        const total = await Employee.countDocuments({});
+        reply.header("Content-Range", `users 0-${total}/${total}`);
+        reply.status(200).json(emloyees);
+      } else {
+        const filter = request.query.filter
+          .replace("{", "")
+          .replace("}", "")
+          .split(":");
+        const emloyees = await Employee.findById(filter[1].replace(/"/g, ""))
+          .skip(0)
+          .limit(1);
+        reply.header("Content-Range", `emloyees 0-${1}/${1}`);
+        reply.status(200).json([emloyees]);
+      }
     } catch (e) {
       reply.status(500).json(e);
     }

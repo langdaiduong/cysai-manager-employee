@@ -18,15 +18,14 @@ const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || "refresh-token-se
  */
 let login = async (req, res) => {
   try {
-    debug(`Đang giả lập hành động đăng nhập thành công với Username: ${req.body.username} và Password: ${req.body.password}`);
+    debug(`Username: ${req.body.username} và Password: ${req.body.password}`);
     // Mình sẽ comment mô tả lại một số bước khi làm thực tế cho các bạn như sau nhé:
     // - Đầu tiên Kiểm tra xem email người dùng đã tồn tại trong hệ thống hay chưa?
     // - Nếu chưa tồn tại thì reject: User not found.
     // - Nếu tồn tại user thì sẽ lấy password mà user truyền lên, băm ra và so sánh với mật khẩu của user lưu trong Database
     // - Nếu password sai thì reject: Password is incorrect.
     // - Nếu password đúng thì chúng ta bắt đầu thực hiện tạo mã JWT và gửi về cho người dùng.
-    // Trong ví dụ demo này mình sẽ coi như tất cả các bước xác thực ở trên đều ok, mình chỉ xử lý phần JWT trở về sau thôi nhé:
-    debug(`Thực hiện fake thông tin user...`);
+    // Trong ví dụ demo này mình sẽ coi như tất cả các bước xác thực ở trên đều ok, mình chỉ xử lý phần JWT trở về sau thôi nhé
     const userData = {
       username: req.query.username,
       password: req.query.password,
@@ -41,6 +40,9 @@ let login = async (req, res) => {
     tokenList[refreshToken] = {accessToken, refreshToken};
     
     debug(`Gửi Token và Refresh Token về cho client...`);
+    console.log(accessToken);
+    console.log(refreshToken);
+
     return res.status(200).json({accessToken, refreshToken});
   } catch (error) {
     return res.status(500).json(error);

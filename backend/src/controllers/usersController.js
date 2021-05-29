@@ -17,10 +17,6 @@ module.exports = {
 
   //#get the list of user
   fetch: async (request, reply) => {
-    const filter = request.query.filter
-      .replace("{", "")
-      .replace("}", "")
-      .split(",");
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
@@ -30,13 +26,25 @@ module.exports = {
       .replace("]", "")
       .split(",");
     try {
-      const users = await User.find({})
-        .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
-        .skip(+range[0])
-        .limit(+range[1] - +range[0]);
-      const total = await User.countDocuments({});
-      reply.header("Content-Range", `users 0-${total}/${total}`);
-      reply.status(200).json(users);
+      if (request.query.filter === "{}") {
+        const users = await User.find({})
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        const total = await User.countDocuments({});
+        reply.header("Content-Range", `users 0-${total}/${total}`);
+        reply.status(200).json(users);
+      } else {
+        const filter = request.query.filter
+          .replace("{", "")
+          .replace("}", "")
+          .split(":");
+        const users = await User.findById(filter[1].replace(/"/g, ""))
+          .skip(0)
+          .limit(1);
+        reply.header("Content-Range", `users 0-${1}/${1}`);
+        reply.status(200).json([users]);
+      }
     } catch (e) {
       console.log(e);
       reply.status(500).json(e);

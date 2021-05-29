@@ -6,6 +6,9 @@ const AuthController = require("../controllers/AuthController");
 const employeesController = require('../controllers/employeesController');
 const salariesController = require('../controllers/salariesController');
 const usersController = require('../controllers/usersController');
+const votesController = require('../controllers/votesController');
+const timekeepingController = require('../controllers/timekeepingController');
+
 
 /**
  * Init all APIs on your application
@@ -50,6 +53,28 @@ let initAPIs = (app) => {
   //#delete a user
   router.delete('/api/users/:id', usersController.delete);
 
+    //list router: votes
+  router.post('/api/votes', votesController.create);
+  //#get the list of user
+  router.get('/api/votes', votesController.fetch);
+  //#get a single user
+  router.get('/api/votes/:id', votesController.get);
+  //#update a user
+  router.put('/api/votes/:id', votesController.update);
+  //#delete a user
+  router.delete('/api/votes/:id', votesController.delete);
+
+
+    //list router: timekeeping
+  router.post('/api/timekeeping', timekeepingController.create);
+  //#get the list of user
+  router.get('/api/timekeeping', timekeepingController.fetch);
+  //#get a single user
+  router.get('/api/timekeeping/:id', timekeepingController.get);
+  //#update a user
+  router.put('/api/timekeeping/:id', timekeepingController.update);
+  //#delete a user
+  router.delete('/api/timekeeping/:id', timekeepingController.delete);
   return app.use("/", router);
 }
 module.exports = initAPIs;
