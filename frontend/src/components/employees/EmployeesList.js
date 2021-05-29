@@ -27,7 +27,7 @@ const PostBulkActionButtons = props => (
 const EmployeesFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="name" source="name" reference="employees" allowEmpty>
+        <ReferenceInput label="Name" source="name" reference="employees" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput>
     </Filter>
