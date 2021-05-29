@@ -17,6 +17,10 @@ module.exports = {
 
   //#get the list of user
   fetch: async (request, reply) => {
+    if (request.query.range === undefined) {
+      console.log("Did not find any range");
+      return;
+    }
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
