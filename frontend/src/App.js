@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Admin, Resource } from 'react-admin';
 import dataProvider from './dataProvider';
 import Dashboard from './Dashboard';
+import chat from './Chat';
 import authProvider from './authProvider';
+import { ChatEngine } from 'react-chat-engine';
+import './App.css'
+import ChatFeed from './components/chat/ChatFeed.jsx';
+//import LoginForm from './components/chat/LoginForm.jsx';
 
 import EmployeesList from './components/employees/EmployeesList';
 import EmployeesEdit from './components/employees/EmployeesEdit';
@@ -39,11 +44,12 @@ import ThumbUpAltSharpIcon from '@material-ui/icons/ThumbUpAltSharp';
 import MenuBookSharpIcon from '@material-ui/icons/MenuBookSharp';
 import ChatIcon from '@material-ui/icons/Chat';
 
-
+//const projectID = "0056905e-32d6-48aa-a93c-4c4d4808e8bb";
 
 function App() {
+  //if (!localStorage.getItem('username')) return <LoginForm />;
   return (
-    <Admin dataProvider={dataProvider} dashboard={Dashboard} >
+    <Admin dataProvider={dataProvider} dashboard={Dashboard} chat={chat} >
       <Resource
         name="employees"
         list={EmployeesList}
@@ -82,9 +88,7 @@ function App() {
       />
       <Resource
         name="chat"
-        list={ChatList}
-        edit={ChatEdit}
-        create={ChatCreate}
+        list={chat}
         icon={ChatIcon}
       />
     </Admin>
