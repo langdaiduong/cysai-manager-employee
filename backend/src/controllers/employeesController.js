@@ -46,13 +46,13 @@ module.exports = {
           .split(":");
         //search
         if (filter[0] === '"q"') {
-          console.log(filter[1]);
+          // console.log(filter[1]);
           const employees_search = await Employee.find({
             "name": { $regex: ".*" + filter[1].replace(/"/g, "") + ".*" },
           })
             .skip(+range[0])
             .limit(+range[1] - +range[0]);
-          console.log(employees_search);
+          // console.log(employees_search);
           reply.status(200).json(employees_search);
         }
         //filter

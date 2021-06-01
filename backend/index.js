@@ -1,4 +1,5 @@
 require('dotenv').config();
+var path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser');
@@ -32,9 +33,14 @@ app.use(express.json());
 // salaryRoutes(app);
 
 initAPIs(app);
+// lien ket voi frontend
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-const port = 5000;
 
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
