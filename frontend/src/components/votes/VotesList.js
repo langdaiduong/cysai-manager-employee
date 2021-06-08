@@ -12,7 +12,8 @@ import {
   TextInput,
   ShowButton,
   RichTextField,
-  SimpleShowLayout
+  SimpleShowLayout,
+  DeleteWithConfirmButton
 } from 'react-admin';
 
 const VotesFilter = (props) => (
@@ -38,7 +39,7 @@ const VotesList = (props) => {
         <TextField source="employees_vote"/>                 
         <DateField source="created_at"/>           
         <EditButton label="Edit" basePath="/votes" />
-        <DeleteButton label="Delete" basePath="/votes" />
+        <DeleteWithConfirmButton label="Delete" basePath="/votes" />
         <ShowButton source="Show"/>
       </Datagrid>
     </List>

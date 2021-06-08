@@ -10,7 +10,8 @@ import {
   Filter,
   SelectInput,
   ReferenceInput,
-  TextInput
+  TextInput,
+  DeleteWithConfirmButton
 } from 'react-admin';
 
 const SalariesFilter = (props) => (
@@ -38,7 +39,7 @@ const SalariesList = (props) => {
         <NumberField source="salary_sum" />                  
         <DateField source="created_at"/>                       
         <EditButton label="Edit" basePath="/salaries" />
-        <DeleteButton label="Delete" basePath="/salaries" />
+        <DeleteWithConfirmButton label="Delete" basePath="/salaries" />
       </Datagrid>
     </List>
   );

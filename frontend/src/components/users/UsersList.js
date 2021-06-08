@@ -12,6 +12,7 @@ import {
   ReferenceInput,
   Pagination as RaPagination,
   PaginationActions as RaPaginationActions,
+  DeleteWithConfirmButton
 } from 'react-admin';
 
 export const PaginationActions = props => <RaPaginationActions {...props} color="secondary" />;
@@ -35,7 +36,7 @@ const UsersList = (props) => {
         <TextField source="roles" label = "Roles"/>     
         <DateField source="created_at"/>             
         <EditButton label="Edit" basePath="/users" />
-        <DeleteButton label="Delete" basePath="/users" />
+        <DeleteWithConfirmButton label="Delete" basePath="/users" />
       </Datagrid>
     </List>
   );

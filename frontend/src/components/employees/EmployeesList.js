@@ -10,7 +10,8 @@ import {
   Filter,
   SelectInput,
   ReferenceInput,
-  TextInput
+  TextInput,
+  DeleteWithConfirmButton
 } from 'react-admin';
 import ResetViewsButton from '../ResetViewsButton';
 import { Fragment } from 'react';
@@ -48,7 +49,7 @@ const EmployeesList = (props) => {
         <TextField source="level" />         
         <DateField source="date_of_joining"/>             
         <EditButton label="Edit" basePath="/employees" />
-        <DeleteButton label="Delete" basePath="/employees" />
+        <DeleteWithConfirmButton label="Delete" basePath="/employees" />
       </Datagrid>
     </List>
   );

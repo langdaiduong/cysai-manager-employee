@@ -1,12 +1,19 @@
 const User = require("../models/users");
 const queryString = require("query-string");
+const argon2 = require("argon2");
 
 module.exports = {
   //# create a user
   create: async (request, reply) => {
     try {
-      const user = request.body;
-      const newUser = await User.create(user);
+      const hash = await argon2.hash(request.body.password);
+      const newUser = await User.create({
+        name: request.body.name,
+        username: request.body.username,
+        password: hash,
+        roles: request.body.roles,
+        created_at: Date.now()
+      });
       console.log(newUser);
       reply.status(201).json(newUser);
     } catch (e) {

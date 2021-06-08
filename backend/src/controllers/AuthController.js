@@ -75,7 +75,7 @@ const register = async (req, res) => {
       name: req.body.name,
       username: req.body.username,
       password: hash,
-      roles: "user",
+      roles: req.body.roles,
     });
     res.send(user);
   } catch (error) {

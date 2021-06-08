@@ -10,7 +10,8 @@ import {
   Filter,
   SelectInput,
   ReferenceInput,
-  TextInput
+  TextInput,
+  DeleteWithConfirmButton
 } from 'react-admin';
 
 const TimeKeepingFilter = (props) => (
@@ -36,7 +37,7 @@ const TimeKeepingList = (props) => {
         <TextField source="notes"/>                 
         <DateField source="created_at"/>      
         <EditButton label="Edit" basePath="/timekeeping" />
-        <DeleteButton label="Delete" basePath="/timekeeping" />
+        <DeleteWithConfirmButton label="Delete" basePath="/timekeeping" />
       </Datagrid>
     </List>
   );
