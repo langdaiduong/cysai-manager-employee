@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-import { Admin, Resource } from 'react-admin';
+import React from 'react';
+import { Admin, Resource, ShowGuesser } from 'react-admin';
 import dataProvider from './dataProvider';
 import Dashboard from './Dashboard';
 import chat from './Chat';
 import authProvider from './authProvider';
-import { ChatEngine } from 'react-chat-engine';
-import './App.css'
-import ChatFeed from './components/chat/ChatFeed.jsx';
 //import LoginForm from './components/chat/LoginForm.jsx';
 
 import EmployeesList from './components/employees/EmployeesList';
@@ -25,16 +22,10 @@ import SalaryCreate from './components/salary/SalariesCreate';
 import VotesList from './components/votes/VotesList';
 import VotesEdit from './components/votes/VotesEdit';
 import VotesCreate from './components/votes/VotesCreate';
-import VotesShow from './components/votes/VotesShow';
 
 import TimeKeepingList from './components/timekeeping/TimeKeepingList';
 import TimeKeepingEdit from './components/timekeeping/TimeKeepingEdit';
 import TimeKeepingCreate from './components/timekeeping/TimeKeepingCreate';
-
-import ChatList from './components/chat/ChatList';
-import ChatEdit from './components/chat/ChatEdit';
-import ChatCreate from './components/chat/ChatCreate';
-
 
 //icon
 import EmployeeIcon from '@material-ui/icons/Person';
@@ -49,7 +40,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 function App() {
   //if (!localStorage.getItem('username')) return <LoginForm />;
   return (
-    <Admin dataProvider={dataProvider} dashboard={Dashboard} chat={chat} >
+    <Admin dataProvider={dataProvider} dashboard={Dashboard} chat={chat} authProvider={authProvider}>
       <Resource
         name="employees"
         list={EmployeesList}
@@ -76,7 +67,7 @@ function App() {
         list={VotesList}
         edit={VotesEdit}
         create={VotesCreate}
-        show={VotesShow}
+        show={ShowGuesser}
         icon={ThumbUpAltSharpIcon}
       />
       <Resource

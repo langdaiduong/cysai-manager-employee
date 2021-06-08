@@ -16,20 +16,20 @@ const authProvider = {
                 }
                 return response.json();
             })
-            .then(({ token, tokenExpiry }) => {
-                return inMemoryJWT.setToken(token, tokenExpiry);
+            .then(({ accessToken, refreshToken }) => {
+                return inMemoryJWT.setToken(accessToken, 5000);
             });
     },
 
     logout: () => {
-        const request = new Request('http://localhost:3000/logout', {
-            method: 'GET',
-            headers: new Headers({ 'Content-Type': 'application/json' }),
-            credentials: 'include',
-        });
+        // const request = new Request('http://localhost:3000/logout', {
+        //     method: 'GET',
+        //     headers: new Headers({ 'Content-Type': 'application/json' }),
+        //     credentials: 'include',
+        // });
         inMemoryJWT.ereaseToken();
 
-        return fetch(request).then(() => '/login');
+        return Promise.resolve();
     },
 
     checkAuth: () => {

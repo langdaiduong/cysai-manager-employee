@@ -10,7 +10,7 @@ import {
   SelectInput,
   ReferenceInput,
   TextInput,
-  Show,
+  ShowButton,
   RichTextField,
   SimpleShowLayout
 } from 'react-admin';
@@ -39,6 +39,7 @@ const VotesList = (props) => {
         <DateField source="created_at"/>           
         <EditButton label="Edit" basePath="/votes" />
         <DeleteButton label="Delete" basePath="/votes" />
+        <ShowButton source="Show"/>
       </Datagrid>
     </List>
   );

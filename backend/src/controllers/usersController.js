@@ -6,7 +6,6 @@ module.exports = {
   create: async (request, reply) => {
     try {
       const user = request.body;
-      console.log(user);
       const newUser = await User.create(user);
       console.log(newUser);
       reply.status(201).json(newUser);

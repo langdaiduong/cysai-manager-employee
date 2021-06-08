@@ -1,36 +1,5 @@
 {
-  "name": "fastify-notes-backend",
-  "version": "1.0.0",
-  "description": "Backend source code for YouTube Fastify + React admin playlist",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LanciWeb/fastify-notes-backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LanciWeb/fastify-notes-backend/issues"
-  },
-  "homepage": "https://github.com/LanciWeb/fastify-notes-backend#readme",
   "dependencies": {
-    "authentication": "^0.0.4",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "dotenv": "^9.0.2",
-    "express": "^4.17.1",
-    "express-jwt": "^6.0.0",
-    "fastify": "^3.6.0",
-    "fastify-jwt": "^2.5.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.9",
-    "nodemon": "^2.0.4",
-    "query-string": "^7.0.0"
+    "mongoose-auto-increment": "^5.0.1"
   }
 }

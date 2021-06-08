@@ -17,5 +17,4 @@ const VotesCreate = (props) => {
     </Create>
   );
 };
-
 export default VotesCreate;

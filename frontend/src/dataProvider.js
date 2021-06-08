@@ -1,10 +1,36 @@
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
+import { fetchUtils } from "react-admin";
+import { stringify } from "query-string";
+import inMemoryJWT from "./inMemoryJWT";
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = "http://localhost:3000/api";
 const httpClient = fetchUtils.fetchJson;
 
 export default {
+  // const httpClient = (url) => {
+  //   const options = {
+  //     headers: new Headers({ Accept: "application/json" }),
+  //   };
+  //   const token = inMemoryJWT.getToken();
+
+  //   if (token) {
+  //     console.log(token);
+  //     options.headers.set("Authorization", `Bearer ${token}`);
+  //     return fetchUtils.fetchJson(url, options);
+  //   } else {
+  //     inMemoryJWT.setRefreshTokenEndpoint(
+  //       "http://localhost:3000/refresh-token"
+  //     );
+  //     return inMemoryJWT.getRefreshedToken().then((gotFreshToken) => {
+  //       if (gotFreshToken) {
+  //         options.headers.set(
+  //           "Authorization",
+  //           `Bearer ${inMemoryJWT.getToken()}`
+  //         );
+  //       }
+  //       return fetchUtils.fetchJson(url, options);
+  //     });
+  //   }
+  // };
   getList: (resource, params) => {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
@@ -17,12 +43,12 @@ export default {
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get('content-range').split('/').pop(), 10),
+      total: parseInt(headers.get("content-range").split("/").pop(), 10),
     }));
   },
   getOne: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
-      data: { ...json, id: json._id }, //!
+      data: { ...json, id: json._id },
     })),
 
   getMany: (resource, params) => {
@@ -50,13 +76,13 @@ export default {
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get('content-range').split('/').pop(), 10),
+      total: parseInt(headers.get("content-range").split("/").pop(), 10),
     }));
   },
 
   update: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: { ...json, id: json._id } })),
 
@@ -65,14 +91,14 @@ export default {
       filter: JSON.stringify({ id: params.id }),
     };
     return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json, id: json._id }));
   },
 
   create: (resource, params) =>
     httpClient(`${apiUrl}/${resource}`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({
       data: { ...params.data, id: json._id },
@@ -80,7 +106,7 @@ export default {
 
   delete: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       body: JSON.stringify(params.id),
     }).then(({ json }) => ({
       ...json,
@@ -92,7 +118,7 @@ export default {
       filter: JSON.stringify({ id: params.ids }),
     };
     return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
-      method: 'DELETE',
+      method: "DELETE",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json }));
   },
