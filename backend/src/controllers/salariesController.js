@@ -15,10 +15,11 @@ module.exports = {
 
   //#get the list of salary
   fetch: async (request, reply) => {
-    const filter = request.query.filter
-      .replace("{", "")
-      .replace("}", "")
-      .split(",");
+    if (request.query.range === undefined) {
+      console.log("Did not find any range");
+      return;
+    }
+    const total = await Salary.countDocuments({});
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
@@ -26,15 +27,42 @@ module.exports = {
     const sort = request.query.sort
       .replace("[", "")
       .replace("]", "")
-      .split(",");    
+      .split(",");
     try {
-      const salaries = await Salary.find({})
-        .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
-        .skip(+range[0])
-        .limit(+range[1] - +range[0]);
-      const total = await Salary.countDocuments({});
-      reply.header("Content-Range", `salaries 0-${total}/${total}`);
-      reply.status(200).json(salaries);
+      //set header content-range
+      reply.header("Content-Range", `employees 0-${total}/${total}`);
+
+      //load list employee when filter = {}
+      if (request.query.filter === "{}") {
+        const salary = await Salary.find({})
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        reply.status(200).json(salary);
+      } else {
+        const filter = request.query.filter
+          .replace("{", "")
+          .replace("}", "")
+          .split(":");
+        //search
+        if (filter[0] === '"q"') {
+          // console.log(filter[1]);
+          const salary_search = await Salary.find({
+            "name": { $regex: ".*" + filter[1].replace(/"/g, "") + ".*" },
+          })
+            .skip(+range[0])
+            .limit(+range[1] - +range[0]);
+          // console.log(employees_search);
+          reply.status(200).json(salary_search);
+        }
+        //filter
+        if (filter[0] === '"name"') {
+          const salary = await Salary.findById(filter[1].replace(/"/g, ""))
+            .skip(+range[0])
+            .limit(+range[1] - +range[0]);
+          reply.status(200).json([salary]);
+        }
+      }
     } catch (e) {
       reply.status(500).json(e);
     }

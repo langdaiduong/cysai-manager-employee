@@ -17,10 +17,10 @@ module.exports = {
 
   //#get the list of vote
   fetch: async (request, reply) => {
-    const filter = request.query.filter
-      .replace("{", "")
-      .replace("}", "")
-      .split(",");
+    if (request.query.range === undefined) {
+      console.log("Did not find any range");
+      return;
+    }
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
@@ -30,13 +30,25 @@ module.exports = {
       .replace("]", "")
       .split(",");
     try {
-      const timekeeping = await TimeKeeping.find({})
-        .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
-        .skip(+range[0])
-        .limit(+range[1] - +range[0]);
-      const total = await TimeKeeping.countDocuments({});
-      reply.header("Content-Range", `timekeeping 0-${total}/${total}`);
-      reply.status(200).json(timekeeping);
+      if (request.query.filter === "{}") {
+        const timekeeping = await TimeKeeping.find({})
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        const total = await TimeKeeping.countDocuments({});
+        reply.header("Content-Range", `users 0-${total}/${total}`);
+        reply.status(200).json(timekeeping);
+      } else {
+        const filter = request.query.filter
+          .replace("{", "")
+          .replace("}", "")
+          .split(":");
+        const users = await TimeKeeping.findById(filter[1].replace(/"/g, ""))
+          .skip(0)
+          .limit(1);
+        reply.header("Content-Range", `users 0-${1}/${1}`);
+        reply.status(200).json([timekeeping]);
+      }
     } catch (e) {
       console.log(e);
       reply.status(500).json(e);
@@ -59,7 +71,7 @@ module.exports = {
     try {
       const timekeepingId = request.params.id;
       const updates = request.body;
-      await TimeKeeping.findByIdAndUpdate(voteId, updates);
+      await TimeKeeping.findByIdAndUpdate(timekeepingId, updates);
       const timekeepingToUpdate = await TimeKeeping.findById(timekeepingId);
       reply.status(200).json({ data: timekeepingToUpdate });
     } catch (e) {
@@ -72,7 +84,7 @@ module.exports = {
     try {
       const timekeepingId = request.params.id;
       const timekeepingToDelete = await TimeKeeping.findById(timekeepingId);
-      await Vote.findByIdAndDelete(timekeepingId);
+      await TimeKeeping.findByIdAndDelete(timekeepingId);
       reply.status(200).json({ data: timekeepingToDelete });
     } catch (e) {
       reply.status(500).json(e);

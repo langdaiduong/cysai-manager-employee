@@ -28,19 +28,19 @@ const VotesList = (props) => {
   return (
     <List {...props} filters={<VotesFilter/>}>
       <Datagrid>
-        <TextField source="id" />
-        <TextField source="fullname" />
-        <TextField source="kpi" />
-        <TextField source="probationary_vote" />
-        <TextField source="promotion_vote" />
-        <TextField source="personal_development" />        
+        <TextField source="_id" label ="id"/>
+        <TextField source="fullname"/>
+        <TextField source="kpi"/>
+        <TextField source="probationary_vote"/>
+        <TextField source="promotion_vote"/>
+        <TextField source="personal_development"/>        
         <TextField source="bonus"/>
         <TextField source="discipline"/> 
         <TextField source="employees_vote"/>                 
         <DateField source="created_at"/>           
-        <EditButton label="Edit" basePath="/votes" />
-        <DeleteWithConfirmButton label="Delete" basePath="/votes" />
-        <ShowButton source="Show"/>
+        <EditButton label="Edit" basePath="/votes"/>
+        <DeleteWithConfirmButton label="Delete" basePath="/votes"/>
+        <ShowButton source="Show"  basePath="/votes"/>
       </Datagrid>
     </List>
   );

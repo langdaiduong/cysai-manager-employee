@@ -11,7 +11,8 @@ import {
   SelectInput,
   ReferenceInput,
   TextInput,
-  DeleteWithConfirmButton
+  DeleteWithConfirmButton,
+  ShowButton
 } from 'react-admin';
 import ResetViewsButton from '../ResetViewsButton';
 import { Fragment } from 'react';
@@ -38,7 +39,7 @@ const EmployeesList = (props) => {
   return (
     <List {...props} filters={<EmployeesFilter/>} bulkActionButtons={<PostBulkActionButtons />}>
       <Datagrid>
-        <TextField source="id" />
+        <TextField source="_id" label = "id"/>
         <TextField source="name" />
         <DateField source="date_of_birth"/>
         <TextField source="gender" />
@@ -50,6 +51,7 @@ const EmployeesList = (props) => {
         <DateField source="date_of_joining"/>             
         <EditButton label="Edit" basePath="/employees" />
         <DeleteWithConfirmButton label="Delete" basePath="/employees" />
+        <ShowButton source="Show"/>
       </Datagrid>
     </List>
   );

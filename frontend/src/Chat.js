@@ -9,7 +9,7 @@ const Chat = () => {
   return (
     <ChatEngine
       height="100vh"
-    //   userName="nguyenvananh"
+      //userName="nguyenvananh"
       userName="langdaiduong"
       userSecret="xyz01634016082"
       projectID={projectID}

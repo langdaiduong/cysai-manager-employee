@@ -12,7 +12,8 @@ import {
   ReferenceInput,
   Pagination as RaPagination,
   PaginationActions as RaPaginationActions,
-  DeleteWithConfirmButton
+  DeleteWithConfirmButton,
+  ShowButton
 } from 'react-admin';
 
 export const PaginationActions = props => <RaPaginationActions {...props} color="secondary" />;
@@ -30,13 +31,14 @@ const UsersList = (props) => {
   return (
     <List {...props} filters={<UsersFilter/>} pagination={<Pagination/>} >
       <Datagrid>
-        <TextField source="id" />
+        <TextField source="_id" label = "id"/>
         <TextField source="username" />
         <TextField source="name" />
         <TextField source="roles" label = "Roles"/>     
         <DateField source="created_at"/>             
         <EditButton label="Edit" basePath="/users" />
-        <DeleteWithConfirmButton label="Delete" basePath="/users" />
+        <DeleteWithConfirmButton label="Delete" basePath="/users"/>
+        <ShowButton source="Show"/>
       </Datagrid>
     </List>
   );

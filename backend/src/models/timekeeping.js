@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const votesSchema = new Schema({
+const timekeepingSchema = new Schema({
   fullname: { type: String, required: true },
   position: { type: String, required: true },
   workdays: { type: Number, required: true },
@@ -10,9 +10,9 @@ const votesSchema = new Schema({
   checkin: { type: Number, required: true },
   overtime: { type: Number, required: true },
   notes:{ type: String, required: true },
-  created_at: { type: String, required: true }
+  created_at: { type: Date }
 });
 
-const TimeKeeping = mongoose.model('timekeeping', votesSchema);
+const TimeKeeping = mongoose.model('timekeeping', timekeepingSchema);
 
 module.exports = TimeKeeping;

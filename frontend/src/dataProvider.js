@@ -6,31 +6,6 @@ const apiUrl = "http://localhost:3000/api";
 const httpClient = fetchUtils.fetchJson;
 
 export default {
-  // const httpClient = (url) => {
-  //   const options = {
-  //     headers: new Headers({ Accept: "application/json" }),
-  //   };
-  //   const token = inMemoryJWT.getToken();
-
-  //   if (token) {
-  //     console.log(token);
-  //     options.headers.set("Authorization", `Bearer ${token}`);
-  //     return fetchUtils.fetchJson(url, options);
-  //   } else {
-  //     inMemoryJWT.setRefreshTokenEndpoint(
-  //       "http://localhost:3000/refresh-token"
-  //     );
-  //     return inMemoryJWT.getRefreshedToken().then((gotFreshToken) => {
-  //       if (gotFreshToken) {
-  //         options.headers.set(
-  //           "Authorization",
-  //           `Bearer ${inMemoryJWT.getToken()}`
-  //         );
-  //       }
-  //       return fetchUtils.fetchJson(url, options);
-  //     });
-  //   }
-  // };
   getList: (resource, params) => {
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
@@ -107,7 +82,7 @@ export default {
   delete: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/${params.id}`, {
       method: "DELETE",
-      body: JSON.stringify(params.id),
+      body: JSON.stringify(params._id),
     }).then(({ json }) => ({
       ...json,
       id: json._id,

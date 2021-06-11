@@ -17,10 +17,10 @@ module.exports = {
 
   //#get the list of vote
   fetch: async (request, reply) => {
-    const filter = request.query.filter
-      .replace("{", "")
-      .replace("}", "")
-      .split(",");
+    if (request.query.range === undefined) {
+      console.log("Did not find any range");
+      return;
+    }
     const range = request.query.range
       .replace("[", "")
       .replace("]", "")
@@ -30,13 +30,26 @@ module.exports = {
       .replace("]", "")
       .split(",");
     try {
-      const votes = await Vote.find({})
-        .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
-        .skip(+range[0])
-        .limit(+range[1] - +range[0]);
-      const total = await Vote.countDocuments({});
-      reply.header("Content-Range", `votes 0-${total}/${total}`);
-      reply.status(200).json(votes);
+      if (request.query.filter === "{}") {
+        const votes = await Vote.find({})
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        const total = await Vote.countDocuments({});
+        reply.header("Content-Range", `votes 0-${total}/${total}`);
+        reply.status(200).json(votes);
+      } else {
+        const filter = request.query.filter
+          .replace("{", "")
+          .replace("}", "")
+          .split(":");
+        const votes = await Vote.findById(filter[1].replace(/"/g, ""))
+          .sort({ [sort[0].replace(/"/g, "")]: sort[1] === '"ASC"' ? -1 : 1 })
+          .skip(+range[0])
+          .limit(+range[1] - +range[0]);
+        reply.header("Content-Range", `votes 0-${1}/${1}`);
+        reply.status(200).json([votes]);
+      }
     } catch (e) {
       console.log(e);
       reply.status(500).json(e);

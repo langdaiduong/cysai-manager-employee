@@ -11,7 +11,8 @@ import {
   SelectInput,
   ReferenceInput,
   TextInput,
-  DeleteWithConfirmButton
+  DeleteWithConfirmButton,
+  ShowButton
 } from 'react-admin';
 
 const SalariesFilter = (props) => (
@@ -26,7 +27,7 @@ const SalariesList = (props) => {
   return (
     <List {...props} filters={<SalariesFilter/>}>
       <Datagrid>
-        <TextField source="id" />
+        <TextField source="_id" label = "id"/>
         <TextField source="fullname" />
         <TextField source="stk" />
         <TextField source="position" />
@@ -40,6 +41,7 @@ const SalariesList = (props) => {
         <DateField source="created_at"/>                       
         <EditButton label="Edit" basePath="/salaries" />
         <DeleteWithConfirmButton label="Delete" basePath="/salaries" />
+        <ShowButton source="Show"/>
       </Datagrid>
     </List>
   );

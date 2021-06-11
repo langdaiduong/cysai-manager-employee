@@ -33,17 +33,17 @@ let login = async (req, res) => {
       console.log(match);
       if (match) {
         const userData = {
-          username: user.username,
-          roles: user.roles,
+          username: user.username
         };
-        debug(`Thực hiện tạo mã Token, [thời gian sống 1 giờ.]`);
+        const permissions = user.roles
+        //Thực hiện tạo mã Token, [thời gian sống 1 giờ.]
         const accessToken = await jwtHelper.generateToken(
           userData,
           accessTokenSecret,
           accessTokenLife
         );
 
-        debug(`Thực hiện tạo mã Refresh Token, [thời gian sống 10 năm] =))`);
+        //Thực hiện tạo mã Refresh Token, [thời gian sống 10 năm]
         const refreshToken = await jwtHelper.generateToken(
           userData,
           refreshTokenSecret,
@@ -52,12 +52,7 @@ let login = async (req, res) => {
         // Lưu lại 2 mã access & Refresh token, với key chính là cái refreshToken để đảm bảo unique và không sợ hacker sửa đổi dữ liệu truyền lên.
         // lưu ý trong dự án thực tế, nên lưu chỗ khác, có thể lưu vào Redis hoặc DB
         tokenList[refreshToken] = { accessToken, refreshToken };
-
-        debug(`Gửi Token và Refresh Token về cho client...`);
-        console.log(accessToken);
-        console.log(refreshToken);
-
-        return res.status(200).json({ accessToken, refreshToken });
+        return res.status(200).json({ accessToken, refreshToken, permissions });
       } else {
         res.send("khong dung mk");
       }

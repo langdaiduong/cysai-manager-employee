@@ -11,7 +11,8 @@ import {
   SelectInput,
   ReferenceInput,
   TextInput,
-  DeleteWithConfirmButton
+  DeleteWithConfirmButton,
+  ShowButton
 } from 'react-admin';
 
 const TimeKeepingFilter = (props) => (
@@ -26,7 +27,7 @@ const TimeKeepingList = (props) => {
   return (
     <List {...props} filters={<TimeKeepingFilter/>}>
       <Datagrid>
-        <TextField source="id" />
+        <TextField source="_id" label = "id"/>
         <TextField source="fullname" />
         <TextField source="position" />
         <NumberField source="workdays" />
@@ -37,7 +38,8 @@ const TimeKeepingList = (props) => {
         <TextField source="notes"/>                 
         <DateField source="created_at"/>      
         <EditButton label="Edit" basePath="/timekeeping" />
-        <DeleteWithConfirmButton label="Delete" basePath="/timekeeping" />
+        <DeleteWithConfirmButton label="Delete" basePath="/timekeeping"/>
+        <ShowButton source="Show"/>
       </Datagrid>
     </List>
   );

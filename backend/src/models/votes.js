@@ -10,7 +10,7 @@ const votesSchema = new Schema({
   bonus: { type: String, required: true },
   discipline: { type: String, required: true },
   employees_vote:{ type: String, required: true },
-  created_at: { type: String, required: true }
+  created_at: { type: Date }
 });
 
 const Votes = mongoose.model('votes', votesSchema);

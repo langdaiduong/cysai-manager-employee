@@ -36,6 +36,7 @@ import MenuBookSharpIcon from '@material-ui/icons/MenuBookSharp';
 import ChatIcon from '@material-ui/icons/Chat';
 
 //const projectID = "0056905e-32d6-48aa-a93c-4c4d4808e8bb";
+//authProvider={authProvider}
 
 function App() {
   //if (!localStorage.getItem('username')) return <LoginForm />;
@@ -67,7 +68,6 @@ function App() {
         list={VotesList}
         edit={VotesEdit}
         create={VotesCreate}
-        show={ShowGuesser}
         icon={ThumbUpAltSharpIcon}
       />
       <Resource

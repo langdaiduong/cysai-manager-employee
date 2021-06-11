@@ -15,27 +15,6 @@ const timekeepingController = require("../controllers/timekeepingController");
  */
 let initAPIs = (app) => {
   router.post("/login", AuthController.login);
-  // router.post("/login", async (ctx) => {
-  //   const { username, password } = ctx.request.body;
-
-  //   const user = await getOneByUsername(username);
-
-  //   if (!user || user.error) {
-  //     ctx.throw(401, user ? user.error : "Invalid credentials.");
-  //     return;
-  //   }
-
-  //   if (!bcrypt.compareSync(password, user.password)) {
-  //     ctx.throw(401, "Invalid credentials.");
-  //     return;
-  //   }
-
-  //   const token = jwt.sign({ username }, config.security.jwt.secretkey, {
-  //     expiresIn: config.security.jwt.expiration,
-  //   });
-
-  //   ctx.body = { token };
-  // });
   router.post("/register", AuthController.register)
   router.post("/refresh-token", AuthController.refreshToken);
   // Sử dụng authMiddleware.isAuth trước những api cần xác thực
@@ -76,24 +55,24 @@ let initAPIs = (app) => {
 
   //list router: votes
   router.post("/api/votes", votesController.create);
-  //#get the list of user
+  //#get the list of votes
   router.get("/api/votes", votesController.fetch);
-  //#get a single user
+  //#get a single votes
   router.get("/api/votes/:id", votesController.get);
-  //#update a user
+  //#update a votes
   router.put("/api/votes/:id", votesController.update);
-  //#delete a user
+  //#delete a votes
   router.delete("/api/votes/:id", votesController.delete);
 
   //list router: timekeeping
   router.post("/api/timekeeping", timekeepingController.create);
-  //#get the list of user
+  //#get the list of timekeeping
   router.get("/api/timekeeping", timekeepingController.fetch);
-  //#get a single user
+  //#get a single timekeeping
   router.get("/api/timekeeping/:id", timekeepingController.get);
-  //#update a user
+  //#update a timekeeping
   router.put("/api/timekeeping/:id", timekeepingController.update);
-  //#delete a user
+  //#delete a timekeeping
   router.delete("/api/timekeeping/:id", timekeepingController.delete);
   return app.use("/", router);
 };

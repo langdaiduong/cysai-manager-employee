@@ -14,7 +14,7 @@ const salarySchema = new Schema({
   },
   tax_personal: { type: String, required: true },
   salary_sum: { type: Number, required: true },  
-  created_at: { type: String, required: true }
+  created_at: { type: Date }
 });
 
 const Salaries = mongoose.model('salaries', salarySchema);

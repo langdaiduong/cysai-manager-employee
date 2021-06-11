@@ -4,7 +4,7 @@ const TimeKeepingEdit = (props) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput disabled source="id" />
+        <TextInput disabled source="_id" label = "id" />
         <TextInput source="fullname" />
         <TextInput source="position" />
         <NumberInput source="workdays" />
