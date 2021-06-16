@@ -16,8 +16,9 @@ const authProvider = {
         }
         return response.json();
       })
-      .then(({ accessToken, refreshToken }) => {
-        return inMemoryJWT.setToken(accessToken, 5000);
+      .then(({ accessToken, refreshToken, permissions }) => {
+        localStorage.setItem("permissions", permissions);
+        return inMemoryJWT.setToken(accessToken, 10000);
       });
   },
 
@@ -49,8 +50,9 @@ const authProvider = {
   },
 
   getPermissions: () => {
+    const role = localStorage.getItem("permissions");
+    return role ? Promise.resolve(role) : Promise.reject();
     return inMemoryJWT.waitForTokenRefresh().then(() => {
-      console.log(inMemoryJWT.getToken());
       return inMemoryJWT.getToken() ? Promise.resolve() : Promise.reject();
     });
   },

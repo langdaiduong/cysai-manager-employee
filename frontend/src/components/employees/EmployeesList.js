@@ -19,7 +19,7 @@ import { Fragment } from 'react';
 // import Button from '@material-ui/core/Button';
 import { BulkDeleteButton } from 'react-admin';
 
-const PostBulkActionButtons = props => (
+const EmployeesBulkActionButtons = props => (
     <Fragment>
         <ResetViewsButton label="Reset Views" {...props} />
         {/* default bulk delete action */}
@@ -37,12 +37,11 @@ const EmployeesFilter = (props) => (
 
 const EmployeesList = (props) => {
   return (
-    <List {...props} filters={<EmployeesFilter/>} bulkActionButtons={<PostBulkActionButtons />}>
+    <List {...props} filters={<EmployeesFilter/>} bulkActionButtons={<EmployeesBulkActionButtons />}>
       <Datagrid>
         <TextField source="_id" label = "id"/>
         <TextField source="name" />
-        <DateField source="date_of_birth"/>
-        <TextField source="gender" />
+        <DateField source="date_of_birth"/> 
         <TextField source="address" />
         <TextField source="phone"/>
         <EmailField source="email" />

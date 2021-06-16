@@ -17,7 +17,7 @@ const UsersCreate = (props) => {
         <SelectInput
           source="roles"
           choices={[
-            { id: "user", name: "user" },
+            { id: "employee", name: "employee" },
             { id: "admin", name: "admin" },
             { id: "manager", name: "manager" },
             { id: "leader", name: "leader" },

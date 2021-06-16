@@ -13,16 +13,16 @@ const ResetViewsButton = ({ selectedIds }) => {
     const notify = useNotify();
     const unselectAll = useUnselectAll();
     const [updateMany, { loading }] = useUpdateMany(
-        'posts',
+        'employees',
         selectedIds,
         { views: 0 },
         {
             onSuccess: () => {
                 refresh();
-                notify('Posts updated');
-                unselectAll('posts');
+                notify('employees updated');
+                unselectAll('employees');
             },
-            onFailure: error => notify('Error: posts not updated', 'warning'),
+            onFailure: error => notify('Error: employees not updated', 'warning'),
         }
     );
 

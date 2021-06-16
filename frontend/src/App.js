@@ -1,5 +1,5 @@
 import React from 'react';
-import { Admin, Resource, ShowGuesser } from 'react-admin';
+import { Admin, Resource, ShowGuesser, Login } from 'react-admin';
 import dataProvider from './dataProvider';
 import Dashboard from './Dashboard';
 import chat from './Chat';
@@ -38,50 +38,67 @@ import ChatIcon from '@material-ui/icons/Chat';
 //const projectID = "0056905e-32d6-48aa-a93c-4c4d4808e8bb";
 //authProvider={authProvider}
 
+const MyLoginPage = () => (
+    <Login
+        // A random image that changes everyday
+        backgroundImage="https://www.smediavn.com/public/ckeditor/imagesimages/Tintuc/Tin%20cong%20nghe/Thang%2011%202016/Smart-city-minh-hoa-2.jpg"
+    />
+);
+
 function App() {
   //if (!localStorage.getItem('username')) return <LoginForm />;
   return (
-    <Admin dataProvider={dataProvider} dashboard={Dashboard} chat={chat} authProvider={authProvider}>
-      <Resource
+    <Admin dataProvider={dataProvider} dashboard={Dashboard} chat={chat} authProvider={authProvider} loginPage={MyLoginPage}>
+    {permissions => [
+      permissions === 'admin' || permissions === 'employee'
+        ? <Resource
         name="employees"
         list={EmployeesList}
-        edit={EmployeesEdit}
-        create={EmployeesCreate}
+        edit={permissions === 'admin' ? EmployeesEdit : null}
+        create={EmployeesCreate }
         icon={EmployeeIcon}
-      />
-      <Resource
-        name="users"
-        list={UsersList}
-        edit={UsersEdit}
-        create={UsersCreate}
-        icon={UserIcon}
-      />
-      <Resource
-        name="salaries"
-        list={SalaryList}
-        edit={SalaryEdit}
-        create={SalaryCreate}
-        icon={AccountBalanceIcon}
-      />
+        />
+        :null,
+      permissions === 'admin'
+        ? <Resource
+          name="users"
+          list={UsersList}
+          edit={permissions === 'admin' ? UsersEdit : null}
+          create={permissions === 'admin' ? UsersCreate : null}
+          icon={UserIcon}
+        />
+        :null,
+      permissions === 'manager'|| permissions ==='admin'
+        ? <Resource
+          name="salaries"
+          list={SalaryList}
+          edit={SalaryEdit}
+          create={SalaryCreate}
+          icon={AccountBalanceIcon}
+        />
+        :null,
       <Resource
         name="votes"
         list={VotesList}
         edit={VotesEdit}
         create={VotesCreate}
         icon={ThumbUpAltSharpIcon}
-      />
-      <Resource
-        name="timekeeping"
-        list={TimeKeepingList}
-        edit={TimeKeepingEdit}
-        create={TimeKeepingCreate}
-        icon={MenuBookSharpIcon}
-      />
+      />,
+      permissions === 'manager'|| permissions ==='admin'
+        ? <Resource
+          name="timekeeping"
+          list={TimeKeepingList}
+          edit={TimeKeepingEdit}
+          create={TimeKeepingCreate}
+          icon={MenuBookSharpIcon}
+        />
+        :null,
       <Resource
         name="chat"
         list={chat}
         icon={ChatIcon}
       />
+      ]}
     </Admin>
   );
 }

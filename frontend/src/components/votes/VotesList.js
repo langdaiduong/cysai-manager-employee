@@ -4,15 +4,12 @@ import {
   Datagrid,
   TextField,
   EditButton,
-  DeleteButton,
   DateField,
   Filter,
   SelectInput,
   ReferenceInput,
   TextInput,
   ShowButton,
-  RichTextField,
-  SimpleShowLayout,
   DeleteWithConfirmButton
 } from 'react-admin';
 
